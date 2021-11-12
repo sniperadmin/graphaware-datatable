@@ -1,53 +1,75 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+  <DefaultLayout>
+    <HelloWorld
+      :headers="dessertHeaders"
+      :items="desserts"
+      :data="tableData"
+    />
+  </DefaultLayout>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'App',
-  data: () => ({
-    //
-  }),
-};
+  import Vue from "vue";
+  import DefaultLayout from "./layouts/DefaultLayout.vue"
+  import fakeData from "@/utils/example-data.json"
+
+  export default Vue.extend({
+    name: 'App',
+    components: {
+      DefaultLayout
+    },
+    data() {
+      return {
+        tableData: fakeData,
+        dessertHeaders: [{
+            text: 'Dessert (100g serving)',
+            align: 'start',
+            sortable: false,
+            value: 'name',
+          },
+          {
+            text: 'Calories',
+            value: 'calories'
+          },
+          {
+            text: 'Fat (g)',
+            value: 'fat'
+          },
+          {
+            text: 'Carbs (g)',
+            value: 'carbs'
+          },
+          {
+            text: 'Protein (g)',
+            value: 'protein'
+          },
+          {
+            text: 'Iron (%)',
+            value: 'iron'
+          },
+          {
+            text: '',
+            value: 'data-table-expand'
+          },
+        ],
+        desserts: [{
+            name: 'Frozen Yogurt',
+            calories: 159,
+            fat: 6.0,
+            carbs: 24,
+            protein: 4.0,
+            iron: '1%',
+          },
+          {
+            name: 'Ice cream sandwich',
+            calories: 237,
+            fat: 9.0,
+            carbs: 37,
+            protein: 4.3,
+            iron: '1%',
+          },
+        ],
+      }
+    }
+  });
 </script>
