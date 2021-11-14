@@ -39,21 +39,26 @@ export function hydrateItemsPerObject(rawData: { data: object, kids: object }[])
     return obj.kids
   })
 
-  let itemObjs: { data: object, kids: object }[] = []
+  let childArr: { data: object, kids: object }[] = []
 
-  rawItems.forEach((itemObj): void => {
-    if (itemObj.has_relatives !== undefined) {
-      itemObjs = [...itemObj.has_relatives.records]
+  rawItems.forEach((itemObj) => {
+    for (let key in itemObj) {
+      if (Object.hasOwnProperty.call(itemObj, key)) {
+        childArr = itemObj[key].records
 
+        hydrateItemsPerObject(childArr)
 
-      // const testHeaders: object[] = hydrateHeadersPerObject(itemObjs)
-      // testHeaders.forEach((obj: any) => {
-      //   obj.items = [...hydrateItemsPerObject(itemObjs)]
-      // })
-      // console.info('testHeaders => ', testHeaders);
+        const resheads = hydrateHeadersPerObject(childArr)
+        const resItems = hydrateItemsPerObject(childArr)
+        childArr = []
+
+        childArr.push({ headers: resheads, items: resItems })
+      }
     }
-    finals.push(...itemObjs)
+    finals.push(...childArr)
   })
+
+  // hydrateItemsPerObject(rawItems)
 
   return finals
 }

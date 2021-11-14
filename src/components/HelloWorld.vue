@@ -49,14 +49,6 @@
 
           finals.forEach(obj => {
             obj.items = [...hydrateItemsPerObject(this.data)]
-            // obj.items.forEach(parent => {
-            //   if (parent.data !== undefined || parent.kids !== undefined) {
-            //     console.log(parent);
-            //     return {
-            //       headers: hydrateHeadersPerObject(parent)
-            //     }
-            //   }
-            // })
           })
 
           return finals
