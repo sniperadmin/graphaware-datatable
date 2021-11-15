@@ -24,7 +24,7 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) 
   heads.forEach((headerObj): void => {
     let headersObjs: object[] = []
     for (const key in headerObj) {
-      headersObjs.push({ text: key, value: (headerObj as Record<string, string>)[key], sortable: true })
+      headersObjs.push({ text: key, value: key, sortable: true })
     }
 
     allHeaders.push({ headers: headersObjs })
@@ -35,30 +35,34 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) 
 
 export function hydrateItemsPerObject(rawData: { data: object, kids: object }[]) {
   let finals: object[] = []
-  const rawItems = rawData.map((obj: any) => {
+
+  const rawKids = rawData.map((obj: any) => {
     return obj.kids
   })
 
   let childArr: { data: object, kids: object }[] = []
+  let dataArr: { data: object }[] = []
 
-  rawItems.forEach((itemObj) => {
-    for (let key in itemObj) {
-      if (Object.hasOwnProperty.call(itemObj, key)) {
-        childArr = itemObj[key].records
+  const data = rawData.map(e => e.data)
 
-        hydrateItemsPerObject(childArr)
+  dataArr = [...data]
 
-        const resheads = hydrateHeadersPerObject(childArr)
-        const resItems = hydrateItemsPerObject(childArr)
-        childArr = []
+  finals.push([...dataArr])
+  // rawKids.forEach((itemObj) => {
+  //   for (let key in itemObj) {
+  //     if (Object.hasOwnProperty.call(itemObj, key)) {
+  //       childArr = itemObj[key].records
 
-        childArr.push({ headers: resheads, items: resItems })
-      }
-    }
-    finals.push(...childArr)
-  })
 
-  // hydrateItemsPerObject(rawItems)
+  //       const items = childArr.map(ch => ch.data)
+  //       childArr = []
+
+  //       childArr.push({ ...items })
+  //       hydrateItemsPerObject(childArr)
+  //     }
+  //   }
+  //   finals.push({ ...childArr })
+  // })
 
   return finals
 }

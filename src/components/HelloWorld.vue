@@ -1,18 +1,18 @@
 <template>
   <v-container>
     <v-data-table
-      :headers="headers"
-      :items="items"
+      :headers="computedHeaders.headers"
+      :items="computedItems[0]"
       :single-expand="singleExpand"
       :expanded.sync="expanded"
-      item-key="name"
+      item-key="Identification number"
       @click:row="(item, slot) => slot.expand(!slot.isExpanded)"
       show-expand
       class="elevation-1"
     >
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-          More info about {{ item.name }}
+          More info about {{ item }}
         </td>
       </template>
     </v-data-table>
@@ -41,7 +41,7 @@
     },
 
     computed: {
-      computedHeaders() {
+      computedPayload() {
         let finals: object[] = []
 
         if (this.data) {
@@ -54,6 +54,16 @@
           return finals
         }
       },
+      computedHeaders() {
+        if (this.data) {
+          return hydrateHeadersPerObject(this.data)[0]
+        }
+      },
+      computedItems() {
+        if (this.data) {
+          return hydrateItemsPerObject(this.data)
+        }
+      }
     },
     data() {
       return {
