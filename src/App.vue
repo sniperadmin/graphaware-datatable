@@ -1,8 +1,6 @@
 <template>
   <DefaultLayout>
-    <HelloWorld
-      :headers="dessertHeaders"
-      :items="desserts"
+    <TheDataTable
       :data="tableData"
     />
   </DefaultLayout>
