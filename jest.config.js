@@ -4,7 +4,6 @@ module.exports = {
     "^@/(.*)$": '<rootDir>/src/$1',
     "^~/(.*)$": '<rootDir>/src/$1',
     '^vue$': 'vue/dist/vue.common.js',
-    'vuetify/lib(.*)': '<rootDir>/node_modules/vuetify/es5$1',
   },
   moduleFileExtensions: [
     'js',
