@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- SECTION: Parent table -->
     <v-data-table
       :headers="computedHeaders(data).headers"
       :items="computedItems(data)[0].map(o => o.data)"
@@ -13,7 +14,6 @@
         }
       }"
       show-expand
-      single-expand
       calculate-widths
       dense
       class="elevation-1"
@@ -25,6 +25,7 @@
               {{ relKey }}
             </v-subheader>
 
+            <!-- SECTION: Relatives -->
             <v-data-table
               :headers="computedHeaders(relVal.records).headers"
               :items="computedItems(relVal.records)[0].map(m => m.data)"
@@ -40,16 +41,32 @@
                 <td :colspan="headers.length">
                   <template v-for="(firstVal, firstKey, firstIndex) in item.kids">
                     <v-subheader>
-                      {{ relKey }}
+                      {{ firstKey }}
                     </v-subheader>
+
+                    <!-- SECTION: Phones -->
+                    <v-data-table
+                      :headers="computedHeaders(firstVal.records).headers"
+                      :items="computedItems(firstVal.records)[0].map(m => m.data)"
+                      :single-expand="singleExpand"
+                      :expanded.sync="firstExpanded"
+                      item-key="Phone ID"
+                      @click:row="(i, s) => s.expand(!s.isExpanded)"
+                      show-expand
+                      hide-default-footer
+                      class="elevation-1 mb-4"
+                    ></v-data-table>
+                    <!-- SECTION: ./Phones -->
                   </template>
                 </td>
               </template>
             </v-data-table>
+            <!-- SECTION: ./Relatives -->
           </template>
         </td>
       </template>
     </v-data-table>
+    <!-- SECTION: ./Parent table -->
   </v-container>
 </template>
 
@@ -86,6 +103,7 @@
       return {
         expanded: [],
         childExpanded: [],
+        firstExpanded: [],
         singleExpand: false,
       }
     },
