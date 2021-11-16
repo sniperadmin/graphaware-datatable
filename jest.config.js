@@ -24,5 +24,9 @@ module.exports = {
   testEnvironment: "jest-environment-jsdom",
   setupFiles: ["<rootDir>/tests/index.ts"],
 
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '<rootDir>/src/components/**/*.vue',
+  ],
   coveragePathIgnorePatterns: ["/node_modules/", "package.json"],
 }
