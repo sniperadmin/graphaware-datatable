@@ -20,6 +20,8 @@ jobs:
           teardown: "true"
           build: |
             npm install
+            npm install -g typescript
+            npm install -g ts-node
             npm run build
       - name: Get the preview_url
         run: echo "url => ${{ steps.preview_step.outputs.preview_url }}"
