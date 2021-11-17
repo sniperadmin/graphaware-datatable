@@ -16,7 +16,7 @@ jobs:
         with:
           surge_token: ${{ secrets.SURGE_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          dist: /
+          dist: dist
           teardown: "true"
           build: |
             npm install
