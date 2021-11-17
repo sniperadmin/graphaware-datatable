@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "serve": "vite preview",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "dev": "vite",
-    "test": "jest"
+    "test": "jest --updateSnapshot"
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.0",
