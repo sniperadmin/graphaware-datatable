@@ -35,7 +35,6 @@
               :single-expand="singleExpand"
               :expanded.sync="childExpanded"
               item-key="Relative ID"
-              @click:row="(i, s) => s.expand(!s.isExpanded)"
               show-expand
               hide-default-footer
               class="elevation-1 mb-4"
@@ -62,7 +61,6 @@
                       :single-expand="singleExpand"
                       :expanded.sync="firstExpanded"
                       item-key="Phone ID"
-                      @click:row="(i, s) => s.expand(!s.isExpanded)"
                       show-expand
                       hide-default-footer
                       class="elevation-1 mb-4"
@@ -113,8 +111,7 @@
         this.dataCopy = this.computedItems(this.data).map(o => o.data)
       },
       deleteItem(item) {
-        const res = deleteObject(this.dataCopy, item)
-        console.log(res);
+        return deleteObject(this.dataCopy, item)
       },
       computedHeaders(data) {
         if (data) {

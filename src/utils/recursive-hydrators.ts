@@ -1,5 +1,17 @@
+/**
+ * @file This file exports headers, items needed for the table
+ * 
+ * Idea => generating compatible headers to be processed via complex Vuetify data tables
+ * Same goes with items
+ */
+
 type PayloadKeys = 'data' | 'kids'
 
+/**
+ * @function hydrateHeadersPerObject
+ * @param {Record<PayloadKeys, Object>[]} rawData
+ * @returns {{headers: object[]}}
+ */
 export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) {
   let allHeaders: object[] = []
   const heads: object[] = rawData.map((obj: Record<PayloadKeys, object>) => {
@@ -24,12 +36,17 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) 
   return allHeaders
 }
 
+/**
+ * @function hydrateItemsPerObject
+ * @param {Record<PayloadKeys, object>[]} rawData
+ * @returns {object[]}
+ */
 export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]): object[] {
   let finals: object[] = []
 
   let dataArr: { data: object }[] = []
 
-  const data = rawData.map((obj: Record<PayloadKeys, object>) => {
+  const data: { data: { kids?: object } }[] = rawData.map((obj: Record<PayloadKeys, object>) => {
     let o: { data: { kids?: object } } = {
       data: obj.data
     }
@@ -42,15 +59,24 @@ export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]): o
   return finals
 }
 
+/**
+ * @function deleteObject
+ * Under testing
+ * Not completed yet
+ */
 export function deleteObject(data: any, obj: any) {
-  let hydrated;
+  let hydrated: object[] = []
+  let done: boolean = false
+
   data.forEach((item: any): void => {
     if (item === obj) {
-      console.log('look for index => ', data.indexOf(obj) > -1);
+      console.log('look for index => ', data.indexOf(obj));
+      console.info('index => ', data.indexOf(obj), 'data => ', data);
 
-      return data.splice(data.indexOf(obj), 1);
+      data.splice(data.indexOf(obj), 1);
+      done = true
     } else {
-      if (item.kids) {
+      if (item.kids && !done) {
         let arr = []
         for (let key in item.kids) {
           if (item.kids[key] instanceof Object) {
@@ -58,9 +84,12 @@ export function deleteObject(data: any, obj: any) {
           }
         }
         hydrated = (hydrateItemsPerObject(arr)[0] as object[]).map((o: any) => o.data)
-        return deleteObject(hydrated, obj)
+        console.log(hydrated);
+        deleteObject(hydrated, obj)
       }
     }
   })
+
+
   return hydrated
 }
