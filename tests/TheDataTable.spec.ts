@@ -22,9 +22,8 @@ describe('TheDataTable', () => {
   it('should display parent table', () => {
     const table = wrapper.find("[data-test='parent']")
     expect(table.exists()).toBe(true)
-    expect(wrapper.html()).toMatchSnapshot()
     console.log(table.props('headers'));
-    expect(table.props('headers')).toEqual([
+    expect(table.props('headers')).toStrictEqual([
       {
         text: 'Identification number',
         value: 'Identification number',
@@ -43,7 +42,8 @@ describe('TheDataTable', () => {
         value: 'Knows the Joker?',
         sortable: true
       },
-      { text: 'kids', value: 'kids', sortable: true, align: ' d-none' }
+      { text: 'kids', value: 'kids', sortable: true, align: ' d-none' },
+      { text: 'Actions', value: 'actions', sortable: false }
     ])
   })
 })

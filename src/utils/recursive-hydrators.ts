@@ -24,7 +24,7 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) 
   return allHeaders
 }
 
-export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]) {
+export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]): object[] {
   let finals: object[] = []
 
   let dataArr: { data: object }[] = []
@@ -44,7 +44,7 @@ export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]) {
 
 export function deleteObject(data: any, obj: any) {
   let hydrated;
-  data.forEach((item: object): void => {
+  data.forEach((item: any): void => {
     if (item === obj) {
       console.log('look for index => ', data.indexOf(obj) > -1);
 
@@ -57,7 +57,7 @@ export function deleteObject(data: any, obj: any) {
             arr.push(...item.kids[key].records)
           }
         }
-        hydrated = hydrateItemsPerObject(arr)[0].map((o: any) => o.data)
+        hydrated = (hydrateItemsPerObject(arr)[0] as object[]).map((o: any) => o.data)
         return deleteObject(hydrated, obj)
       }
     }
