@@ -4,6 +4,8 @@ A simple wrapper component built with Vite-Vue2-Typescript
 
 ![alt text](sample-img.png "site screenshot")
 
+![Known Vulnerabilities](https://snyk.io/test/github/sniperadmin/graphaware-datatable/badge.svg)
+
 ## Main project outline
 
 :construction: => (under construction)
