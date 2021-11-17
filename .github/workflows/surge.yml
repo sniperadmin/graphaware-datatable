@@ -17,6 +17,7 @@ jobs:
           teardown: "true"
           build: |
             npm install
+            npm install -g typescript
             npm run build
             npm run preview
       - name: Get the preview_url
