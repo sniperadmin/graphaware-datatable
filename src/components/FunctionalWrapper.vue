@@ -11,8 +11,8 @@
 
             <SingleDataTable
               item-key="Relative ID"
-              :headers="computedHeaders(relVal.records).headers"
-              :items="computedItems(relVal.records).map(m => m.data)"
+              :headers="generatedHeaders(relVal.records)"
+              :items="relVal.records.map(m => m.data)"
             >
               <template v-slot:expanded-item="{ headers, item }">
                 <td :colspan="headers.length">
@@ -22,15 +22,14 @@
                     </v-subheader>
 
                     <SingleDataTable
-                      item-key="Patient ID"
-                      :headers="computedHeaders(firstVal.records).headers"
-                      :items="computedItems(firstVal.records).map(m => m.data)"
+                      item-key="Phone ID"
+                      :headers="generatedHeaders(firstVal.records)"
+                      :items="firstVal.records.map(m => m.data)"
                     >
                     </SingleDataTable>
                   </template>
                 </td>
               </template>
-
             </SingleDataTable>
           </template>
         </td>
@@ -68,20 +67,17 @@
     },
     methods: {
         initialize() {
-            this.headersCopy = this.computedHeaders(this.data).headers;
-            this.dataCopy = this.computedItems(this.data).map(o => o.data);
+            this.headersCopy = this.generatedHeaders(this.data);
+            this.dataCopy = this.generatedItems(this.data).map(o => o.data);
         },
-        deleteItem(item) {
-            return deleteObject(this.dataCopy, item);
-        },
-        computedHeaders(data) {
+        generatedHeaders(data) {
             if (data) {
-                return hydrateHeadersPerObject(data)[0];
+              return hydrateHeadersPerObject(data);
             }
         },
-        computedItems(data) {
+        generatedItems(data) {
             if (data) {
-                return hydrateItemsPerObject(data)[0];
+              return hydrateItemsPerObject(data);
             }
         }
     },

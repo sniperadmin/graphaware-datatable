@@ -33,7 +33,7 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) 
     allHeaders.push({ headers: headersObjs })
   })
 
-  return allHeaders
+  return allHeaders[0].headers
 }
 
 /**
@@ -55,7 +55,7 @@ export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]): o
   })
 
   dataArr = [...data]
-  finals.push([...dataArr])
+  finals = [...dataArr]
   return finals
 }
 
