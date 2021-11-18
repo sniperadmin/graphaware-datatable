@@ -1,6 +1,6 @@
 <template>
   <DefaultLayout>
-    <TheDataTable
+    <FunctionalWrapper
       :data="tableData"
     />
   </DefaultLayout>
@@ -9,14 +9,14 @@
 <script lang="ts">
   import Vue from "vue";
   import DefaultLayout from "./layouts/DefaultLayout.vue"
-  import TheDataTable from "./components/TheDataTable.vue"
+  import FunctionalWrapper from "./components/FunctionalWrapper.vue"
   import fakeData from "@/utils/example-data.json"
 
   export default Vue.extend({
     name: 'App',
     components: {
       DefaultLayout,
-      TheDataTable
+      FunctionalWrapper
     },
     data() {
       return {
