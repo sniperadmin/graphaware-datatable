@@ -10,6 +10,10 @@
     calculate-widths
     :hide-default-footer="hideFooter"
     dense
+    @click:row="(item, slot) => {
+      if (Object.keys(item.kids).length)
+        slot.expand(!slot.isExpanded)
+    }"
     class="elevation-1"
     v-bind="{ ...$attrs }"
     v-on="$listeners"
