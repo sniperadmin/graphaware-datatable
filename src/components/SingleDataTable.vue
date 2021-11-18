@@ -8,7 +8,7 @@
     :item-key="itemKey"
     show-expand
     calculate-widths
-    hide-default-footer
+    :hide-default-footer="hideFooter"
     dense
     class="elevation-1"
     v-bind="{ ...$attrs }"
@@ -34,6 +34,7 @@
             :item-key="calcItemKey(val.records)"
             :headers="generatedHeaders(val.records)"
             :items="generatedItems(val.records).map(m => m.data)"
+            hide-footer
             class="mb-8"
           ></SingleDataTable>
         </template>
@@ -61,6 +62,10 @@ export default Vue.extend({
     itemKey: {
       type: String,
       default: ''
+    },
+    hideFooter: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
