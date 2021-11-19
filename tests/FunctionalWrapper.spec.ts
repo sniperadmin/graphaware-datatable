@@ -1,34 +1,29 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import SingleDataTable from '@/components/SingleDataTable.vue'
+import FunctionalWrapper from '@/components/FunctionalWrapper.vue'
 import fakeData from "../src/utils/example-data.json"
-// import { hydrateHeadersPerObject, hydrateItemsPerObject } from '@/utils/recursive-hydrators'
 
-// const headers = hydrateHeadersPerObject(fakeData)
-// const items = hydrateItemsPerObject(fakeData)
 
 let wrapper: any;
 
-describe('SingleDataTable', () => {
+describe('FunctionalWrapper', () => {
   beforeEach(() => {
     const localVue = createLocalVue()
-    wrapper = shallowMount(SingleDataTable, {
+    wrapper = shallowMount(FunctionalWrapper, {
       localVue,
       propsData: {
         data: fakeData,
-        headers: [],
-        items: []
-      }
+      },
     })
   })
 
-  xit('should mount', () => {
+  it('should mount', () => {
     expect(wrapper.vm).toBeTruthy()
   });
 
-  xit('should display parent table', () => {
-    const table = wrapper.find("[data-test='parent']")
+  it('should display parent table', () => {
+    const table = wrapper.find("[data-test='wrapper']")
+
     expect(table.exists()).toBe(true)
-    console.log(table.props('headers'));
     expect(table.props('headers')).toStrictEqual([
       {
         text: 'Identification number',

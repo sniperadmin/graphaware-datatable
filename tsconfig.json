@@ -15,5 +15,5 @@
     "noImplicitReturns": true,
     "types": ["vite/client", "@types/jest"]
   },
-  "include": ["./src", "tests/HelloWorld.spec.ts"]
+  "include": ["./src", "tests/FunctionalWrapper.spec.ts"]
 }
