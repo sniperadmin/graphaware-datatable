@@ -5,18 +5,18 @@
  * Same goes with items
  */
 
-import { HeaderObject, PayloadKeys } from '../services/types/definitions'
+import { HeaderObject, DataRecord } from '../services/types/definitions'
 
 
 /**
  * @function hydrateHeadersPerObject
- * @param {Record<PayloadKeys, Object>[]} rawData
+ * @param {DataRecord[]} rawData
  * @returns {HeaderObject[]}
  */
-export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]): HeaderObject[] {
+export function hydrateHeadersPerObject(rawData: DataRecord[]): HeaderObject[] {
   let allHeaders: { headers: HeaderObject[] }[] = []
 
-  const heads: object[] = rawData.map((obj: Record<PayloadKeys, object>) => {
+  const heads: object[] = rawData.map((obj: DataRecord) => {
     return obj.data
   })
 
@@ -42,15 +42,15 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]):
 
 /**
  * @function hydrateItemsPerObject
- * @param {Record<PayloadKeys, object>[]} rawData
+ * @param {DataRecord[]} rawData
  * @returns {object[]}
  */
-export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]): object[] {
+export function hydrateItemsPerObject(rawData: DataRecord[]): object[] {
   let finals: object[] = []
 
   let dataArr: { data: object }[] = []
 
-  const data: { data: { kids?: object } }[] = rawData.map((obj: Record<PayloadKeys, object>) => {
+  const data: { data: { kids?: object } }[] = rawData.map((obj: DataRecord) => {
     let o: { data: { kids?: object } } = {
       data: obj.data
     }

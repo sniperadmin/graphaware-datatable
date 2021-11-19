@@ -10,10 +10,7 @@
     calculate-widths
     :hide-default-footer="hideFooter"
     dense
-    @click:row="(item, slot) => {
-      if (Object.keys(item.kids).length)
-        slot.expand(!slot.isExpanded)
-    }"
+    @click:row="handleRowClicking"
     class="elevation-1"
     v-bind="{ ...$attrs }"
     v-on="$listeners"
@@ -50,7 +47,7 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import { hydrateHeadersPerObject, hydrateItemsPerObject } from '../utils/recursive-hydrators'
-import { PayloadKeys, HeaderObject } from '../services/types/definitions'
+import { HeaderObject, DataRecord } from '../services/types/definitions'
 
 export default Vue.extend({
   name: 'SingleDataTable',
@@ -86,17 +83,21 @@ export default Vue.extend({
       console.log(this.dataCopy.indexOf(item));
       return this.dataCopy.splice(this.dataCopy.indexOf(item), 1);
     },
-    generatedHeaders(data: Record<PayloadKeys, object>[]): HeaderObject[] {
+    generatedHeaders(data: DataRecord[]): HeaderObject[] {
       return hydrateHeadersPerObject(data)!;
     },
-    generatedItems(data: Record<PayloadKeys, object>[]): object[] {
+    generatedItems(data: DataRecord[]): object[] {
       return hydrateItemsPerObject(data)!;
     },
-    calcItemKey(arr: Record<PayloadKeys, object>[]) {
+    calcItemKey(arr: DataRecord[]) {
       const pickObj: HeaderObject = this.generatedHeaders(arr)[0]
       const key: string = Object.keys(pickObj).find(a => a == 'text')!
       return pickObj[key]
+    },
+    handleRowClicking(item: any, slot: any) {
+      if (Object.keys(item.kids) && Object.keys(item.kids).length)
+        slot.expand(!slot.isExpanded)
+      }
     }
-  }
 })
 </script>

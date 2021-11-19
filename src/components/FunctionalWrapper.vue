@@ -9,7 +9,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import { hydrateHeadersPerObject, hydrateItemsPerObject } from '../utils/recursive-hydrators'
-  import { PayloadKeys } from '../services/types/definitions'
+  import { DataRecord } from '../services/types/definitions'
   import SingleDataTable from './SingleDataTable.vue'
 
   export default Vue.extend<any, any, any, any>({
@@ -32,14 +32,14 @@
     methods: {
       initialize() {
         this.headersCopy = this.generatedHeaders(this.data)
-        this.dataCopy = this.generatedItems(this.data).map((o: Record<PayloadKeys, object>) => o.data)
+        this.dataCopy = this.generatedItems(this.data).map((o: DataRecord) => o.data)
       },
-      generatedHeaders(data: Record<PayloadKeys, object>[]): void|object[] {
+      generatedHeaders(data: DataRecord[]): void|object[] {
         if (data) {
           return hydrateHeadersPerObject(data);
         }
       },
-      generatedItems(data: Record<PayloadKeys, object>[]): void|object[] {
+      generatedItems(data: DataRecord[]): void|object[] {
         if (data) {
           return hydrateItemsPerObject(data);
         }
