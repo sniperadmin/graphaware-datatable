@@ -14,6 +14,7 @@
     class="elevation-1"
     v-bind="{ ...$attrs }"
     v-on="$listeners"
+    :item-class="colorRow"
   >
     <template v-slot:item.actions="{ item }">
       <v-icon
@@ -83,21 +84,37 @@ export default Vue.extend({
       console.log(this.dataCopy.indexOf(item));
       return this.dataCopy.splice(this.dataCopy.indexOf(item), 1);
     },
+
     generatedHeaders(data: DataRecord[]): HeaderObject[] {
       return hydrateHeadersPerObject(data)!;
     },
+
     generatedItems(data: DataRecord[]): object[] {
       return hydrateItemsPerObject(data)!;
     },
+
     calcItemKey(arr: DataRecord[]) {
       const pickObj: HeaderObject = this.generatedHeaders(arr)[0]
       const key: string = Object.keys(pickObj).find(a => a == 'text')!
       return pickObj[key]
     },
+
     handleRowClicking(item: any, slot: any) {
       if (Object.keys(item.kids) && Object.keys(item.kids).length)
         slot.expand(!slot.isExpanded)
+      },
+
+      colorRow(item: any) {
+        return Object.keys(item.kids).length ? 'has-kids' : ''
       }
-    }
+    },
+
 })
 </script>
+
+<style>
+.has-kids {
+  background-color: rgba(108, 228, 60, 0.171);
+  transition: background 0.5s;
+}
+</style>

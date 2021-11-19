@@ -1,5 +1,29 @@
 <template>
   <DefaultLayout>
+    <v-container>
+      <v-alert
+        text
+        dense
+        color="info"
+        icon="mdi-clock-fast"
+        border="left"
+        class="text-left"
+      >
+        <ul>
+          <li>
+            Rows marked with a light green background are expandable
+          </li>
+          <li>
+            Rows with kids can be expandable via a click event
+          </li>
+          <li>
+            Other rows cannot be expanded via click, however you can force expand via clicking
+              the expand icon on the left side of each row
+          </li>
+        </ul>
+      </v-alert>
+    </v-container>
+
     <FunctionalWrapper
       :data="tableData"
     />
