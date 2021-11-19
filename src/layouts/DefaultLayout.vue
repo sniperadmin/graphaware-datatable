@@ -35,7 +35,9 @@
     </v-app-bar>
 
     <v-main>
-      <slot />
+      <keep-alive>
+        <slot />
+      </keep-alive>
     </v-main>
   </v-app>
 </template>
