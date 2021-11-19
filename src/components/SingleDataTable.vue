@@ -10,13 +10,11 @@
     calculate-widths
     :hide-default-footer="hideFooter"
     dense
-    @click:row="(item, slot) => {
-      if (Object.keys(item.kids).length)
-        slot.expand(!slot.isExpanded)
-    }"
+    @click:row="handleRowClicking"
     class="elevation-1"
     v-bind="{ ...$attrs }"
     v-on="$listeners"
+    :item-class="colorRow"
   >
     <template v-slot:item.actions="{ item }">
       <v-icon
@@ -48,8 +46,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { hydrateHeadersPerObject, hydrateItemsPerObject } from '@/utils/recursive-hydrators'
+import Vue, { PropOptions } from 'vue'
+import { hydrateHeadersPerObject, hydrateItemsPerObject } from '../utils/recursive-hydrators'
+import { HeaderObject, DataRecord } from '../services/types/definitions'
 
 export default Vue.extend({
   name: 'SingleDataTable',
@@ -58,19 +57,19 @@ export default Vue.extend({
     headers: {
       type: Array,
       required: true,
-    },
+    } as PropOptions<object[]>,
     items: {
       type: Array,
       required: true,
-    },
+    } as PropOptions<object[]>,
     itemKey: {
       type: String,
       default: ''
-    },
+    }as PropOptions<string>,
     hideFooter: {
       type: Boolean,
       default: false
-    }
+    } as PropOptions<boolean>
   },
   data() {
     return {
@@ -81,24 +80,41 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleDelete(item) {
+    handleDelete(item: object) {
       console.log(this.dataCopy.indexOf(item));
-      this.dataCopy.splice(this.dataCopy.indexOf(item), 1)
+      return this.dataCopy.splice(this.dataCopy.indexOf(item), 1);
     },
-    generatedHeaders(data) {
-      if (data) {
-        return hydrateHeadersPerObject(data);
+
+    generatedHeaders(data: DataRecord[]): HeaderObject[] {
+      return hydrateHeadersPerObject(data)!;
+    },
+
+    generatedItems(data: DataRecord[]): object[] {
+      return hydrateItemsPerObject(data)!;
+    },
+
+    calcItemKey(arr: DataRecord[]) {
+      const pickObj: HeaderObject = this.generatedHeaders(arr)[0]
+      const key: string = Object.keys(pickObj).find(a => a == 'text')!
+      return pickObj[key]
+    },
+
+    handleRowClicking(item: any, slot: any) {
+      if (Object.keys(item.kids) && Object.keys(item.kids).length)
+        slot.expand(!slot.isExpanded)
+      },
+
+      colorRow(item: any) {
+        return Object.keys(item.kids).length ? 'has-kids' : ''
       }
     },
-    generatedItems(data) {
-      if (data) {
-        return hydrateItemsPerObject(data);
-      }
-    },
-    calcItemKey(arr) {
-      const key = Object.keys(this.generatedHeaders(arr)[0]).find(a => a == 'text')
-      return this.generatedHeaders(arr)[0][key]
-    }
-  }
+
 })
 </script>
+
+<style>
+.has-kids {
+  background-color: rgba(108, 228, 60, 0.171);
+  transition: background 0.5s;
+}
+</style>
