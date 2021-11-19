@@ -34,15 +34,11 @@
         this.headersCopy = this.generatedHeaders(this.data)
         this.dataCopy = this.generatedItems(this.data).map((o: DataRecord) => o.data)
       },
-      generatedHeaders(data: DataRecord[]): void|object[] {
-        if (data) {
-          return hydrateHeadersPerObject(data);
-        }
+      generatedHeaders(data: DataRecord[]): object[] {
+        return hydrateHeadersPerObject(data)!;
       },
-      generatedItems(data: DataRecord[]): void|object[] {
-        if (data) {
-          return hydrateItemsPerObject(data);
-        }
+      generatedItems(data: DataRecord[]): object[] {
+        return hydrateItemsPerObject(data)!;
       }
     },
 
