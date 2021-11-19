@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <!-- SECTION: Parent table -->
-    <SingleDataTable :headers="headersCopy" :items="dataCopy" item-key="Identification number">
-      <!--  -->
-    </SingleDataTable>
+    <SingleDataTable :headers="headersCopy" :items="dataCopy" item-key="Identification number" />
     <!-- SECTION: ./Parent table -->
   </v-container>
 </template>
