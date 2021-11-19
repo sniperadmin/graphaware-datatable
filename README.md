@@ -16,9 +16,8 @@ A simple wrapper component built with Vite-Vue2-Typescript
 |   :-------------------:       |    :------------------:    |
 | Wrapper component             |           done ✔️          |
 | Nested Tables                 |           done ✔️          |
-| Totally recursive             |        :construction:      |
-| Everything is Recursive       |        :construction:      |
-| Delete functionality          | Parent only :construction: |
+| Totally recursive             |           done ✔️          |
+| Delete functionality          |           done ✔️          |
 ---
 
 ### Project setup
