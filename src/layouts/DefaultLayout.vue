@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="indigo lighten-1" dark>
       <div class="d-flex align-center">
         <v-img alt="Vuetify Logo" class="shrink mr-2" contain
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition" width="40" />
@@ -12,6 +12,26 @@
       <v-spacer></v-spacer>
 
       <h3>Reusable data table</h3>
+
+      <template v-slot:extension>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              fab
+              color="cyan accent-4"
+              bottom
+              left
+              absolute
+              v-bind="attrs"
+              v-on="on"
+              @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+            >
+              <v-icon>mdi-theme-light-dark</v-icon>
+            </v-btn>
+          </template>
+          <span>Toggle light / dark theme</span>
+        </v-tooltip>
+      </template>
     </v-app-bar>
 
     <v-main>

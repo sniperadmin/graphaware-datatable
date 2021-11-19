@@ -13,10 +13,12 @@ type PayloadKeys = 'data' | 'kids'
  * @returns {{headers: object[]}}
  */
 export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) {
-  let allHeaders: object[] = []
+  let allHeaders: { headers: object[] }[] = []
+
   const heads: object[] = rawData.map((obj: Record<PayloadKeys, object>) => {
     return obj.data
   })
+
 
   heads.forEach((headerObj): void => {
     let headersObjs: object[] = []
@@ -33,8 +35,9 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) 
     allHeaders.push({ headers: headersObjs })
   })
 
-  return allHeaders
+  return allHeaders[0].headers
 }
+
 
 /**
  * @function hydrateItemsPerObject
@@ -55,41 +58,6 @@ export function hydrateItemsPerObject(rawData: Record<PayloadKeys, object>[]): o
   })
 
   dataArr = [...data]
-  finals.push([...dataArr])
+  finals = [...dataArr]
   return finals
-}
-
-/**
- * @function deleteObject
- * Under testing
- * Not completed yet
- */
-export function deleteObject(data: any, obj: any) {
-  let hydrated: object[] = []
-  let done: boolean = false
-
-  data.forEach((item: any): void => {
-    if (item === obj) {
-      console.log('look for index => ', data.indexOf(obj));
-      console.info('index => ', data.indexOf(obj), 'data => ', data);
-
-      data.splice(data.indexOf(obj), 1);
-      done = true
-    } else {
-      if (item.kids && !done) {
-        let arr = []
-        for (let key in item.kids) {
-          if (item.kids[key] instanceof Object) {
-            arr.push(...item.kids[key].records)
-          }
-        }
-        hydrated = (hydrateItemsPerObject(arr)[0] as object[]).map((o: any) => o.data)
-        console.log(hydrated);
-        deleteObject(hydrated, obj)
-      }
-    }
-  })
-
-
-  return hydrated
 }
