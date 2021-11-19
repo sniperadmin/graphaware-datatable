@@ -13,15 +13,12 @@ type PayloadKeys = 'data' | 'kids'
  * @returns {{headers: object[]}}
  */
 export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) {
-  let allHeaders: object[] = []
+  let allHeaders: { headers: object[] }[] = []
 
   const heads: object[] = rawData.map((obj: Record<PayloadKeys, object>) => {
     return obj.data
   })
 
-  const kids: object[] = rawData.map((obj: Record<PayloadKeys, object>) => {
-    return obj.kids
-  })
 
   heads.forEach((headerObj): void => {
     let headersObjs: object[] = []
