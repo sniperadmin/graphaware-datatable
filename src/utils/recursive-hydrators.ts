@@ -5,15 +5,16 @@
  * Same goes with items
  */
 
-type PayloadKeys = 'data' | 'kids'
+import { HeaderObject, PayloadKeys } from '../services/types/definitions'
+
 
 /**
  * @function hydrateHeadersPerObject
  * @param {Record<PayloadKeys, Object>[]} rawData
- * @returns {{headers: object[]}}
+ * @returns {HeaderObject[]}
  */
-export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) {
-  let allHeaders: { headers: object[] }[] = []
+export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]): HeaderObject[] {
+  let allHeaders: { headers: HeaderObject[] }[] = []
 
   const heads: object[] = rawData.map((obj: Record<PayloadKeys, object>) => {
     return obj.data
@@ -21,7 +22,7 @@ export function hydrateHeadersPerObject(rawData: Record<PayloadKeys, object>[]) 
 
 
   heads.forEach((headerObj): void => {
-    let headersObjs: object[] = []
+    let headersObjs: HeaderObject[] = []
     for (const key in headerObj) {
       if (key === 'kids') {
         headersObjs.push({ text: key, value: key, sortable: true, align: ' d-none' })

@@ -48,8 +48,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { hydrateHeadersPerObject, hydrateItemsPerObject } from '@/utils/recursive-hydrators'
+import Vue, { PropOptions } from 'vue'
+import { hydrateHeadersPerObject, hydrateItemsPerObject } from '../utils/recursive-hydrators'
+import { PayloadKeys, HeaderObject } from '../services/types/definitions'
 
 export default Vue.extend({
   name: 'SingleDataTable',
@@ -58,19 +59,19 @@ export default Vue.extend({
     headers: {
       type: Array,
       required: true,
-    },
+    } as PropOptions<object[]>,
     items: {
       type: Array,
       required: true,
-    },
+    } as PropOptions<object[]>,
     itemKey: {
       type: String,
       default: ''
-    },
+    }as PropOptions<string>,
     hideFooter: {
       type: Boolean,
       default: false
-    }
+    } as PropOptions<boolean>
   },
   data() {
     return {
@@ -81,23 +82,20 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleDelete(item) {
+    handleDelete(item: object) {
       console.log(this.dataCopy.indexOf(item));
-      this.dataCopy.splice(this.dataCopy.indexOf(item), 1)
+      return this.dataCopy.splice(this.dataCopy.indexOf(item), 1);
     },
-    generatedHeaders(data) {
-      if (data) {
-        return hydrateHeadersPerObject(data);
-      }
+    generatedHeaders(data: Record<PayloadKeys, object>[]): HeaderObject[] {
+      return hydrateHeadersPerObject(data)!;
     },
-    generatedItems(data) {
-      if (data) {
-        return hydrateItemsPerObject(data);
-      }
+    generatedItems(data: Record<PayloadKeys, object>[]): object[] {
+      return hydrateItemsPerObject(data)!;
     },
-    calcItemKey(arr) {
-      const key = Object.keys(this.generatedHeaders(arr)[0]).find(a => a == 'text')
-      return this.generatedHeaders(arr)[0][key]
+    calcItemKey(arr: Record<PayloadKeys, object>[]) {
+      const pickObj: HeaderObject = this.generatedHeaders(arr)[0]
+      const key: string = Object.keys(pickObj).find(a => a == 'text')!
+      return pickObj[key]
     }
   }
 })
