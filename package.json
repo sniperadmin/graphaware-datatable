@@ -1,6 +1,6 @@
 {
   "name": "vite-vue2-ts",
-  "version": "0.0.0",
+  "version": "0.1.0-development",
   "scripts": {
     "serve": "vite preview",
     "build": "tsc && vite build",
@@ -32,6 +32,7 @@
     "@types/jest": "^27.0.2",
     "@vue/test-utils": "^1.2.2",
     "jest": "^27.3.1",
+    "semantic-release": "^18.0.0",
     "ts-jest": "^27.0.7",
     "typescript": "^4.4.4",
     "vite": "^2.5.4",
