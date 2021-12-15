@@ -10,7 +10,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.16.0",
     "@mdi/font": "5.9.55",
-    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/jest-dom": "^5.15.1",
     "@vitejs/plugin-vue": "^1.9.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^27.3.1",
