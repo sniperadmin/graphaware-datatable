@@ -8,7 +8,7 @@
     "test": "jest --updateSnapshot"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-env": "^7.22.0",
     "@mdi/font": "5.9.55",
     "@testing-library/jest-dom": "^5.15.0",
     "@vitejs/plugin-vue": "^1.9.2",
