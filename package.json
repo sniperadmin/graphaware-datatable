@@ -20,7 +20,7 @@
     "roboto-fontface": "*",
     "stats.js": "^0.17.0",
     "vite-plugin-components": "^0.13.3",
-    "vite-plugin-vue2": "^1.8.2",
+    "vite-plugin-vue2": "^1.9.3",
     "vue": "^2.6.14",
     "vue-router": "^3.5.2",
     "vue-template-compiler": "^2.6.14",
